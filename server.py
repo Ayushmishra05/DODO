@@ -21,7 +21,6 @@ from flask import Flask, request, Response, jsonify, send_from_directory
 from dodo.lexer import Lexer, LexerError
 from dodo.parser import Parser, ParserError
 from dodo.wasm_codegen import WasmCodeGen, WasmCodeGenError
-from dodo.wat2wasm import compile_wat_to_wasm, Wat2WasmError
 
 app = Flask(__name__, static_folder="static")
 
@@ -56,15 +55,8 @@ def compile_dodo():
         codegen = WasmCodeGen(ast)
         wat_text = codegen.generate()
 
-        # Step 4: Compile WAT → WASM
-        wasm_bytes = compile_wat_to_wasm(wat_text)
-
-        # Return the .wasm binary
-        return Response(
-            wasm_bytes,
-            mimetype="application/wasm",
-            headers={"Content-Disposition": "inline; filename=output.wasm"},
-        )
+        # Return the .wat text
+        return Response(wat_text, mimetype="text/plain")
 
     except LexerError as e:
         return jsonify({"error": f"Lexer Error: {e}"}), 400
@@ -72,8 +64,6 @@ def compile_dodo():
         return jsonify({"error": f"Parser Error: {e}"}), 400
     except WasmCodeGenError as e:
         return jsonify({"error": f"Code Generation Error: {e}"}), 400
-    except Wat2WasmError as e:
-        return jsonify({"error": f"WASM Compilation Error: {e}"}), 500
     except Exception as e:
         traceback.print_exc()
         return jsonify({"error": f"Internal Error: {e}"}), 500

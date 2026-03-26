@@ -168,7 +168,24 @@ async function compileAndRun() {
             return;
         }
 
-        const wasmBytes = await response.arrayBuffer();
+        const watText = await response.text();
+        setStatus("⚙️ Compiling WAT to WASM in browser...");
+
+        // Compile WAT to WASM using wabt.js
+        let wasmBytes;
+        try {
+            const wabt = await WabtModule();
+            const wasmModule = wabt.parseWat("program.wat", watText);
+            wasmModule.resolveNames();
+            wasmModule.validate();
+            const binaryOutput = wasmModule.toBinary({ log: true, write_debug_names: true });
+            wasmBytes = binaryOutput.buffer;
+        } catch (err) {
+            appendOutput(`❌ WASM Compilation Error:\n${err.message}`, "output-error");
+            setStatus("Error");
+            return;
+        }
+
         setStatus("⚡ Executing WASM...");
 
         // Build import object
