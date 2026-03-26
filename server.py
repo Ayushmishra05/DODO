@@ -106,4 +106,4 @@ def compile_wat_only():
 
 if __name__ == "__main__":
     print("\n  🦤 DODO Web IDE — http://127.0.0.1:5000\n")
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
