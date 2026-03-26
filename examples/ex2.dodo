@@ -1,0 +1,20 @@
+disp "printing something"
+
+num a = 20 
+
+deci b = 40.5 
+
+decip c = 40.545855
+
+if a > b {
+    disp "a is greater than b" 
+}
+else {
+    disp "b is greater than a" 
+}
+
+
+
+from i=10 to 30 step i++ {
+    disp i 
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DODO Web IDE — WebAssembly Playground</title>
+    <meta name="description" content="Write DODO programs and run them in the browser via WebAssembly compilation.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header id="app-header">
+        <div class="header-left">
+            <div class="logo">
+                <span class="logo-icon">🦤</span>
+                <h1>DODO <span class="logo-accent">Web IDE</span></h1>
+            </div>
+            <span class="badge">WASM Powered</span>
+        </div>
+        <div class="header-right">
+            <select id="example-select" title="Load example program">
+                <option value="">Load Example...</option>
+                <option value="hello">Hello World</option>
+                <option value="variables">Variables</option>
+                <option value="arithmetic">Arithmetic</option>
+                <option value="conditionals">Conditionals</option>
+            </select>
+            <button id="wat-btn" class="btn btn-secondary" title="View generated WAT code">
+                <span class="btn-icon">📄</span> View WAT
+            </button>
+            <button id="run-btn" class="btn btn-primary" title="Compile and run (Ctrl+Enter)">
+                <span class="btn-icon">▶</span> Run
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="app-main">
+        <!-- Editor Panel -->
+        <section id="editor-panel" class="panel">
+            <div class="panel-header">
+                <span class="panel-title">
+                    <span class="dot dot-green"></span>
+                    Editor
+                </span>
+                <span class="panel-subtitle">program.dodo</span>
+            </div>
+            <div class="panel-body">
+                <div class="editor-wrapper">
+                    <div class="line-numbers" id="line-numbers"></div>
+                    <textarea
+                        id="code-editor"
+                        spellcheck="false"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        placeholder="// Write your DODO code here..."
+                    >// 🦤 Welcome to DODO Web IDE!
+// Your code compiles to WebAssembly and runs in the browser.
+
+disp "Hello from DODO!"
+
+num x = 42
+num y = 8
+num result = x + y
+
+disp "The answer is:"
+disp result
+
+if result > 40 {
+    disp "That's a big number!"
+} else {
+    disp "That's a small number."
+}</textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resize Handle -->
+        <div id="resize-handle" class="resize-handle"></div>
+
+        <!-- Output Panel -->
+        <section id="output-panel" class="panel">
+            <div class="panel-header">
+                <span class="panel-title">
+                    <span class="dot dot-blue"></span>
+                    Output
+                </span>
+                <button id="clear-btn" class="btn-icon-only" title="Clear output">✕</button>
+            </div>
+            <div class="panel-body">
+                <pre id="output-console" class="output-console"></pre>
+            </div>
+        </section>
+    </main>
+
+    <!-- WAT Modal -->
+    <div id="wat-modal" class="modal-overlay" hidden>
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Generated WAT Code</h2>
+                <button id="modal-close-btn" class="btn-icon-only">✕</button>
+            </div>
+            <pre id="wat-output" class="wat-output"></pre>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <footer id="status-bar">
+        <span id="status-text">Ready</span>
+        <span id="status-time"></span>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

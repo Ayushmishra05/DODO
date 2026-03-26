@@ -1,0 +1,8 @@
+// If-else example
+num age = 18
+
+if age >= 18 {
+    disp "Adult"
+} else {
+    disp "Minor"
+}

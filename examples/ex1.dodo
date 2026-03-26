@@ -1,0 +1,17 @@
+disp "Hello World"
+
+num a = 20
+
+deci b = 20.5 
+
+decip c = 20.545855
+
+
+if b < c {
+    disp "Hello Boys" 
+}
+else {
+    disp "Hello Girls" 
+}
+
+

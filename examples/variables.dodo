@@ -1,0 +1,8 @@
+// Variable declaration examples
+num x = 10
+deci pi = 3.14
+decip precise = 3.141592653589793
+
+disp x
+disp pi
+disp precise
